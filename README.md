@@ -1,7 +1,7 @@
 # ffxivweather-py
 FFXIV weather forecast library for Python applications.
 
-Credit to [Garland Tools](https://www.garlandtools.org/) for crowdsourced weather data, and [XIVAPI](https://xivapi.com/) and [FFCafe](https://ffcafe.org/) for game data.
+Credit to [Garland Tools](https://www.garlandtools.org/) for weather data, and [XIVAPI](https://xivapi.com/) and [FFCafe](https://ffcafe.org/) for game data.
 
 ## Installation
 `pip install ffxivweather`
