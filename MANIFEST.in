@@ -1,0 +1,2 @@
+include ffxivweather/store/*.json
+exclude main_program.py

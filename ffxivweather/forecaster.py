@@ -2,8 +2,10 @@ import codecs
 import ctypes
 import datetime
 import jsonpickle
+import os
+import pathlib
 
-from lang_kind import LangKind
+from .lang_kind import LangKind
 
 SECONDS = 1
 MINUTES = 60 * SECONDS
@@ -11,16 +13,18 @@ WEATHER_PERIOD = 23 * MINUTES + 20 * SECONDS
 
 EPOCH = datetime.datetime(1970, 1, 1)
 
+HERE = pathlib.Path(__file__).parent
+
 WEATHER_KINDS = None
-with codecs.open("store/weatherKinds.json", encoding="utf-8") as f:
+with codecs.open(os.path.join(HERE, "store/weatherKinds.json"), encoding="utf-8") as f:
     WEATHER_KINDS = jsonpickle.decode(f.read())
 
 WEATHER_RATE_INDICES = None
-with codecs.open("store/weatherRateIndices.json", encoding="utf-8") as f:
+with codecs.open(os.path.join(HERE, "store/weatherRateIndices.json"), encoding="utf-8") as f:
     WEATHER_RATE_INDICES = jsonpickle.decode(f.read())
 
 TERRITORY_TYPES = None
-with codecs.open("store/terriTypes.json", encoding="utf-8") as f:
+with codecs.open(os.path.join(HERE, "store/terriTypes.json"), encoding="utf-8") as f:
     TERRITORY_TYPES = jsonpickle.decode(f.read())
 
 def get_forecast(place_name: str=None,

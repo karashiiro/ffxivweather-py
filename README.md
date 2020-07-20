@@ -4,6 +4,32 @@ FFXIV weather forecast library for Python applications.
 Credit to [Garland Tools](https://www.garlandtools.org/) for crowdsourced weather data, and [XIVAPI](https://xivapi.com/) and [FFCafe](https://ffcafe.org/) for game data.
 
 ## Installation
+`pip install ffxivweather`
+
+## Documentation
+This package only exposes two methods:
+```python
+def get_forecast(place_name: str=None,
+                terri_type_id: int=None,
+                terri_type: str=None,
+                count: int=1,
+                second_increment: float=WEATHER_PERIOD,
+                initial_offset: float=0 * MINUTES,
+                lang: LangKind=LangKind.EN) -> list
+"""Returns the next count forecast entries for the provided territory, at a
+separation defined by second_increment and from the provided initial offset in seconds.
+Forecast entries are tuples in which the first item is the weather, and the second item
+is the start time of that weather."""
+```
+```python
+def get_current_weather(place_name: str=None,
+                        terri_type_id: int=None,
+                        terri_type: str=None,
+                        initial_offset: float=0 * MINUTES,
+                        lang: LangKind=LangKind.EN):
+"""Returns the current weather and its start time, relative to the provided
+offset in seconds, for the specified territory type."""
+```
 
 ## Example
 Code:
@@ -12,7 +38,7 @@ import datetime
 import ffxivweather
 
 zone = "Eureka Pyros"
-forecast = ffxivweather.get_forecast(place_name=zone, count=15)
+forecast = ffxivweather.forecaster.get_forecast(place_name=zone, count=15)
 
 print("Weather for " + zone + ":")
 print("|\tWeather\t\t|\tTime\t|")

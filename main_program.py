@@ -2,7 +2,7 @@ import datetime
 import ffxivweather
 
 zone = "Eureka Pyros"
-forecast = ffxivweather.get_forecast(place_name=zone, count=15)
+forecast = ffxivweather.forecaster.get_forecast(place_name=zone, count=15)
 
 print("Weather for " + zone + ":")
 print("|\tWeather\t\t|\tTime\t|")

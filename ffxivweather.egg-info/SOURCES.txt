@@ -1,0 +1,14 @@
+MANIFEST.in
+README.md
+setup.py
+ffxivweather/__init__.py
+ffxivweather/forecaster.py
+ffxivweather/lang_kind.py
+ffxivweather.egg-info/PKG-INFO
+ffxivweather.egg-info/SOURCES.txt
+ffxivweather.egg-info/dependency_links.txt
+ffxivweather.egg-info/requires.txt
+ffxivweather.egg-info/top_level.txt
+ffxivweather/store/terriTypes.json
+ffxivweather/store/weatherKinds.json
+ffxivweather/store/weatherRateIndices.json
