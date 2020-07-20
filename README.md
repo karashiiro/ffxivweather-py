@@ -15,7 +15,7 @@ def get_forecast(place_name: str=None,
                 count: int=1,
                 second_increment: float=WEATHER_PERIOD,
                 initial_offset: float=0 * MINUTES,
-                lang: LangKind=LangKind.EN) -> list
+                lang: LangKind=LangKind.EN) -> list:
 """Returns the next count forecast entries for the provided territory, at a
 separation defined by second_increment and from the provided initial offset in seconds.
 Forecast entries are tuples in which the first item is the weather, and the second item
