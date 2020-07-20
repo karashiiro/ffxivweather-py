@@ -50,7 +50,7 @@ def get_forecast(place_name: str=None,
 
     forecast.append(get_current_weather(terri_type=terri_type, initial_offset=initial_offset))
 
-    for i in range(1, count - 1):
+    for i in range(1, count):
         time = forecast[0][1] + datetime.timedelta(seconds=i * second_increment + initial_offset)
         weather_target = _calculate_target(time)
         weather = _get_weather(weather_rate_index, weather_target)
@@ -86,13 +86,13 @@ def _get_weather(weather_rate_index, target: int):
     weather_id = None
     for weather in weather_rate_index["rates"]:
         if (target < weather["rate"]):
-            weather_id = weather["weather"]
+            weather_id = weather["id"]
             break
     weather = WEATHER_KINDS[weather_id - 1]
     return weather
 
 def _get_terri_type_weather_rate_index(terri_type):
-    weather_rate_id = terri_type["WeatherRate"]
+    weather_rate_id = terri_type["weather_rate"]
     weather_rate_index = WEATHER_RATE_INDICES[weather_rate_id]
     return weather_rate_index
 
@@ -100,17 +100,17 @@ def _get_territory(terri_type_id: int=None, place_name: str=None, lang: LangKind
     terri_type = None
     if (terri_type_id is not None):
         for tt in TERRITORY_TYPES:
-            if (terri_type_id == tt["Id"]):
+            if (terri_type_id == tt["id"]):
                 terri_type = tt
     elif (place_name is not None):
         if (lang is None):
             raise ValueError("lang cannot be None.")
         for tt in TERRITORY_TYPES:
-            if (lang == LangKind.EN and tt["NameEn"] == place_name or
-                lang == LangKind.DE and tt["NameDe"] == place_name or
-                lang == LangKind.FR and tt["NameFr"] == place_name or
-                lang == LangKind.JA and tt["NameJa"] == place_name or
-                lang == LangKind.ZH and tt["NameZh"] == place_name):
+            if (lang == LangKind.EN and tt["name_en"] == place_name or
+                lang == LangKind.DE and tt["name_de"] == place_name or
+                lang == LangKind.FR and tt["name_fr"] == place_name or
+                lang == LangKind.JA and tt["name_ja"] == place_name or
+                lang == LangKind.ZH and tt["name_zh"] == place_name):
                 terri_type = tt
     if (terri_type is None):
         raise ValueError("The specified territory does not exist.")
