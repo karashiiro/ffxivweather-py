@@ -107,14 +107,15 @@ def _get_territory(terri_type_id: int=None, place_name: str=None, lang: LangKind
             if (terri_type_id == tt["id"]):
                 terri_type = tt
     elif (place_name is not None):
+        place_name = place_name.lower()
         if (lang is None):
             raise ValueError("lang cannot be None.")
         for tt in TERRITORY_TYPES:
-            if (lang == LangKind.EN and tt["name_en"] == place_name or
-                lang == LangKind.DE and tt["name_de"] == place_name or
-                lang == LangKind.FR and tt["name_fr"] == place_name or
-                lang == LangKind.JA and tt["name_ja"] == place_name or
-                lang == LangKind.ZH and tt["name_zh"] == place_name):
+            if (lang == LangKind.EN and tt["name_en"].lower() == place_name or
+                lang == LangKind.DE and tt["name_de"].lower() == place_name or
+                lang == LangKind.FR and tt["name_fr"].lower() == place_name or
+                lang == LangKind.JA and tt["name_ja"].lower() == place_name or
+                lang == LangKind.ZH and tt["name_zh"].lower() == place_name):
                 terri_type = tt
     if (terri_type is None):
         raise ValueError("The specified territory does not exist.")
