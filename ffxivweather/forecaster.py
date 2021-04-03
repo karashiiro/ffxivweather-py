@@ -55,7 +55,7 @@ def get_forecast(place_name: str=None,
     forecast.append(get_current_weather(terri_type=terri_type, initial_offset=initial_offset))
 
     for i in range(1, count):
-        time = forecast[0][1] + datetime.timedelta(seconds=i * second_increment + initial_offset)
+        time = forecast[0][1] + datetime.timedelta(seconds=i * second_increment)
         weather_target = _calculate_target(time)
         weather = _get_weather(weather_rate_index, weather_target)
         forecast.append((weather, time))
