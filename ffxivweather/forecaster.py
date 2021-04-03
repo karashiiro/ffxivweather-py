@@ -125,15 +125,9 @@ def _get_current_weather_root_time(initial_offset: float) -> datetime.datetime:
     """Returns the start time of the current weather with respect to the provided initial offset."""
     now = datetime.datetime.utcnow()
     adjusted_now = now - datetime.timedelta(seconds=now.second + initial_offset, microseconds=now.microsecond)
-    target = _calculate_target(adjusted_now)
     root_time = adjusted_now
-    any_iterations = False
-    while (_calculate_target(root_time) == target):
-        root_time -= datetime.timedelta(seconds=1)
-        any_iterations = True
-    # This handles the edge case where the while loop doesn't run.
-    if (any_iterations):
-        root_time += datetime.timedelta(seconds=1)
+    seconds = (root_time - EPOCH).total_seconds() % WEATHER_PERIOD
+    root_time = root_time + datetime.timedelta(0, seconds)
     return root_time
 
 def _calculate_target(time: datetime.datetime) -> int:
