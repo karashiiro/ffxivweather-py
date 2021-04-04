@@ -48,11 +48,9 @@ def get_forecast(place_name: str=None,
     if (terri_type is None):
         raise ValueError("Territory type cannot be None.")
 
-    forecast = list()
-
     weather_rate_index = _get_terri_type_weather_rate_index(terri_type)
 
-    forecast.append(get_current_weather(terri_type=terri_type, initial_offset=initial_offset))
+    forecast = [get_current_weather(terri_type=terri_type, initial_offset=initial_offset)]
 
     for i in range(1, count):
         time = forecast[0][1] + datetime.timedelta(seconds=i * second_increment)
@@ -75,7 +73,7 @@ def get_current_weather(place_name: str=None,
         terri_type = _get_territory(place_name=place_name, lang=lang)
     if (terri_type is None):
         raise ValueError("Territory type cannot be None.")
-
+    
     root_time = _get_current_weather_root_time(initial_offset)
     target = _calculate_target(root_time)
 
@@ -124,10 +122,10 @@ def _get_territory(terri_type_id: int=None, place_name: str=None, lang: LangKind
 def _get_current_weather_root_time(initial_offset: float) -> datetime.datetime:
     """Returns the start time of the current weather with respect to the provided initial offset."""
     now = datetime.datetime.utcnow()
-    adjusted_now = now - datetime.timedelta(seconds=now.second + initial_offset, microseconds=now.microsecond)
+    adjusted_now = now + datetime.timedelta(seconds=initial_offset, microseconds=-now.microsecond)
     root_time = adjusted_now
-    seconds = (root_time - EPOCH).total_seconds() % WEATHER_PERIOD
-    root_time = root_time + datetime.timedelta(0, seconds)
+    seconds = int((root_time - EPOCH).total_seconds()) % WEATHER_PERIOD
+    root_time = root_time - datetime.timedelta(seconds=seconds)
     return root_time
 
 def _calculate_target(time: datetime.datetime) -> int:
@@ -136,12 +134,12 @@ def _calculate_target(time: datetime.datetime) -> int:
     unix = int((time - EPOCH).total_seconds())
     bell = int(unix / 175)
     increment = (ctypes.c_uint32(bell + 8 - (bell % 8))).value % 24
-
+    
     total_days = ctypes.c_uint32(int(unix / 4200)).value
-
+    
     calc_base = (total_days * 0x64) + increment
 
-    step1 = (calc_base << 0xB) ^ calc_base
+    step1 = ctypes.c_uint32(calc_base << 0xB).value ^ calc_base
     step2 = (step1 >> 8) ^ step1
 
     return int(step2 % 0x64)

@@ -1,8 +1,8 @@
 import datetime
 import ffxivweather
 
-zone = "ウルダハ：ナル回廊"
-forecast = ffxivweather.forecaster.get_forecast(place_name=zone, count=15, lang=ffxivweather.lang_kind.LangKind.JA)
+zone = "Eureka Pyros"
+forecast = ffxivweather.forecaster.get_forecast(place_name=zone, count=15, lang=ffxivweather.lang_kind.LangKind.EN)
 
 print("Weather for " + zone + ":")
 print("|\tWeather\t\t|\tTime\t|")
