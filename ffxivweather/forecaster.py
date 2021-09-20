@@ -34,10 +34,12 @@ def get_forecast(place_name: str=None,
                 second_increment: float=WEATHER_PERIOD,
                 initial_offset: float=0 * MINUTES,
                 lang: LangKind=LangKind.EN) -> list:
-    """Returns the next count forecast entries for the provided territory, at a
+    """
+    Returns the next count forecast entries for the provided territory, at a
     separation defined by second_increment and from the provided initial offset in seconds.
     Forecast entries are tuples in which the first item is the weather, and the second item
-    is the start time of that weather."""
+    is the start time of that weather.
+    """
     if (count == 0):
         return list()
 
@@ -65,8 +67,10 @@ def get_current_weather(place_name: str=None,
                         terri_type: str=None,
                         initial_offset: float=0 * MINUTES,
                         lang: LangKind=LangKind.EN):
-    """Returns the current weather and its start time, relative to the provided
-    offset in seconds, for the specified territory type."""
+    """
+    Returns the current weather and its start time, relative to the provided
+    offset in seconds, for the specified territory type.
+    """
     if (terri_type_id is not None):
         terri_type = _get_territory(terri_type_id=terri_type_id)
     if (place_name is not None):
@@ -129,8 +133,10 @@ def _get_current_weather_root_time(initial_offset: float) -> datetime.datetime:
     return root_time
 
 def _calculate_target(time: datetime.datetime) -> int:
-    """Calculates the weather target at the provided datetime.datetime.
-    Returns the value from 0..99 (inclusive) calculated based on the provided time"""
+    """
+    Calculates the weather target at the provided datetime.datetime.
+    Returns the value from 0..99 (inclusive) calculated based on the provided time.
+    """
     unix = int((time - EPOCH).total_seconds())
     bell = unix // 175
     increment = (bell + 8 - (bell % 8)) % 24
