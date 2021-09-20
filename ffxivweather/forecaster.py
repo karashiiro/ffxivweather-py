@@ -132,10 +132,10 @@ def _calculate_target(time: datetime.datetime) -> int:
     """Calculates the weather target at the provided datetime.datetime.
     Returns the value from 0..99 (inclusive) calculated based on the provided time"""
     unix = int((time - EPOCH).total_seconds())
-    bell = int(unix / 175)
-    increment = (ctypes.c_uint32(bell + 8 - (bell % 8))).value % 24
+    bell = unix // 175
+    increment = (bell + 8 - (bell % 8)) % 24
     
-    total_days = ctypes.c_uint32(int(unix / 4200)).value
+    total_days = unix // 4200
     
     calc_base = (total_days * 0x64) + increment
 
