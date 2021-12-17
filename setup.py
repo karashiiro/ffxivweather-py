@@ -10,7 +10,7 @@ README = (HERE / "README.md").read_text()
 # This call to setup() does all the work
 setup(
     name="ffxivweather",
-    version="1.0.11",
+    version="1.0.12",
     description="FFXIV weather forecast library for Python applications.",
     long_description=README,
     long_description_content_type="text/markdown",
